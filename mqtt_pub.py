@@ -9,19 +9,25 @@ def parse_argv(argv):
     args = vars(args)    
     return args
 
+def conf_file_details(params):
+    broker = params.get("broker")
+    topic  = params.get("topic")
+    port   = params.get("port")
+    publish_interval      = params.get("publish_interval")
+    qos    = params.get("qos")
+    log    = params.get("log")
+    return broker, topic, port, publish_interval, qos, log
+
 def main():
     try:
         client = mqtt.Client()
         args = parse_argv(sys.argv[1:])
+        print(sys.argv[1:])
+        print(args)
         conf_file=args.get("conf")
         with open(conf_file,"r") as fp:
             params   = json.load(fp)
-            broker = params.get("broker")
-            topic  = params.get("topic")
-            port   = params.get("port")
-            publish_interval      = params.get("publish_interval")
-            qos    = params.get("qos")
-            log    = params.get("log")
+        broker, topic, port, publish_interval, qos, log = conf_file_details(params)
         logging.basicConfig(filename=log, level=logging.ERROR)
         try:
             client.connect(broker,port)
