@@ -1,0 +1,8 @@
+{
+    "broker":"host",
+    "port":1883,
+    "topic":"college",
+    "publish_interval":1,
+    "qos":1,
+    "log":"logs/mqtt_publish.log"
+}
